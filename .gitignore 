@@ -1,0 +1,64 @@
+########################
+#  General OS clutter  #
+########################
+.DS_Store
+Thumbs.db
+
+########################
+#  Python artifacts    #
+########################
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+########################
+#  Virtual envs        #
+########################
+.venv/
+venv/
+env/
+
+########################
+#  Editor / IDE files  #
+########################
+.vscode/
+.idea/
+*.swp
+*.swo
+
+########################
+#  Secrets / configs   #
+########################
+.env
+
+
+########################
+#  Docker build cache  #
+########################
+**/.pytest_cache/
+**/.cache/
+# Docker layer exports (if ever used)
+*.tar
+
+########################
+#  Playwright outputs  #
+########################
+playwright-report/
+trace.zip
+test-results/
+
+########################
+#  Generated tests & reports
+########################
+tests/generated/
+reports/
+*.html          # pytest‑html reports
+
+########################
+#  Packaging / misc    #
+########################
+*.zip
+*.egg-info/
+dist/
+build/
