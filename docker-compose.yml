@@ -1,0 +1,32 @@
+version: "3.9"
+
+x-base: &base
+  build: .
+  env_file: .env
+  volumes:
+    - ./:/app
+  tty: true
+
+services:
+  # ① イメージをビルドする専用サービス -----------------------------
+  builder:
+    <<: *base
+    command: ["bash", "-c", "echo build-only"]
+
+  # ② 常駐ワークスペース -------------------------------------------
+  workspace:
+    <<: *base
+    depends_on: [builder]
+    # ずっと起動しておく（CPU負荷ゼロ）
+    command: ["tail", "-f", "/dev/null"]
+
+  # --- 以下は v3 互換のワンショットサービス (任意) -------------
+  generator:
+    <<: *base
+    depends_on: [builder]
+    entrypoint: ["python", "scripts/generate_tests.py"]
+
+  runner:
+    <<: *base
+    depends_on: [builder, generator]
+    entrypoint: ["bash", "scripts/run_tests.sh"]
